@@ -38,8 +38,11 @@ router.get('/get-otp', (req, res) => {
 router.post('/send-otp',  async (req, res) => {
     console.log("-----Send OTP Route Hit-----")
     try {
-        const {phoneNumber, otp} = req.body;
-        console.log("Req Body:", req.body);
+        const {phoneNumber, otp, fullName} = req.body;
+        console.log("Fullname:", fullName);
+        console.log("Phone Number:", phoneNumber);
+        console.log("OTP:", otp);
+        console.log("=======Sending OTP=========");
         
         if (!phoneNumber || !otp) {
             return res.status(400).json({ 
@@ -48,6 +51,9 @@ router.post('/send-otp',  async (req, res) => {
         }
         
         const result = await sendOTP(phoneNumber, otp);
+        console.log("OTP Result:", result);
+        console.log("=======Finnished Sending OTP=========");
+       
         
         res.status(200).json({ 
             success: true, 
